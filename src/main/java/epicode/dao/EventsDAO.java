@@ -1,9 +1,13 @@
 package epicode.dao;
 
+import epicode.entities.Concerto;
 import epicode.entities.Event;
+import epicode.entities.Genere;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class EventsDAO {
     private EntityManager em;
@@ -44,5 +48,20 @@ public class EventsDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
     }
+
+    // metodo che restituisce tutti gli eventi in streaming tramite JPQL
+        public List<Concerto> getConcertiInStreaming(boolean inStraming){
+            TypedQuery<Concerto> query = em.createQuery("SELECT c.id FROM Concerto c WHERE c.idEvento = :idEvento", Concerto.class);
+            query.setParameter("inStraming", inStraming);
+            return query.getResultList();
+        }
+
+        // metodo che restituisce tutti gli eventi per genere tramite JPQL
+        public List<Concerto> getConcertiPerGenere (Genere genere){
+        TypedQuery<Concerto> query = em.createQuery("SELECT c FROM Concerto c WHERE c.genere = :genere", Concerto.class);
+        query.setParameter("genere", genere);
+        return query.getResultList();
+        }
 }

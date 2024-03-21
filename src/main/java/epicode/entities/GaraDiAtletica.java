@@ -1,11 +1,15 @@
 package epicode.entities;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
 public class GaraDiAtletica extends Event{
     // Attributi
+    @Column(name = "atleti")
     private Person atleti;
+    @Column(name = "vincitore")
+
     private Person vincitore;
 
     // Costruttore

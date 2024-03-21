@@ -1,7 +1,7 @@
 package epicode.entities;
-
+import javax.persistence.Entity;
 import java.time.LocalDate;
-
+@Entity
 public class Concerto extends Event{
     // Attributi
     private Genere genere;
