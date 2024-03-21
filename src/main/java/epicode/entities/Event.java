@@ -1,29 +1,30 @@
 package epicode.entities;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "tipoEvento")
 @Table(name = "eventi")
 public class Event {
     @Id
     @GeneratedValue
-    private long id;
+    protected long id;
 
-    private String titolo;
-    private LocalDate dataEvento;
-    private String descrizione;
+    protected String titolo;
+    protected LocalDate dataEvento;
+    protected String descrizione;
     @Enumerated(EnumType.STRING)
-    private TipoEvento tipoEvento;
-    private int numeroMassimoPartecipanti;
+    protected TipoEvento tipoEvento;
+    protected int numeroMassimoPartecipanti;
 
     @ManyToOne
     @JoinColumn(name = "luogo_evento_id")
-    private Location luogoEvento;
+    protected Location luogoEvento;
 
     @OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE)
-    private List<Attendance> listaPartecipazioni;
+    protected List<Attendance> listaPartecipazioni;
 
     public Event() {
     }
